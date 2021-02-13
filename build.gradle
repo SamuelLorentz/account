@@ -1,0 +1,51 @@
+plugins {
+    id("com.github.johnrengelman.shadow") version "6.1.0"
+    id("io.micronaut.application") version "1.3.4"
+}
+
+version = "0.1"
+group = "com.banking"
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+micronaut {
+    runtime("netty")
+    testRuntime("junit5")
+    processing {
+        incremental(true)
+        annotations("com.banking.*")
+    }
+}
+
+dependencies {
+    annotationProcessor("org.projectlombok:lombok")
+    annotationProcessor("io.micronaut.openapi:micronaut-openapi")
+    implementation("io.micronaut:micronaut-validation")
+    implementation("io.micronaut:micronaut-runtime")
+    implementation("javax.annotation:javax.annotation-api")
+    implementation("io.micronaut:micronaut-http-client")
+    implementation("io.swagger.core.v3:swagger-annotations")
+    compileOnly("org.projectlombok:lombok")
+    implementation("io.micronaut.cache:micronaut-cache-caffeine")
+    implementation("org.apache.logging.log4j:log4j-core:2.12.1")
+    runtimeOnly("org.apache.logging.log4j:log4j-api:2.12.1")
+    runtimeOnly("org.apache.logging.log4j:log4j-slf4j-impl:2.12.1")
+    runtimeOnly("com.h2database:h2")
+    testImplementation("org.mockito:mockito-core")
+}
+
+
+application {
+    mainClass.set("com.banking.Application")
+}
+
+java {
+    sourceCompatibility = JavaVersion.toVersion("11")
+    targetCompatibility = JavaVersion.toVersion("11")
+}
+
+
+
